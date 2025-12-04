@@ -54,7 +54,7 @@
     border: 1px solid #333;
     border-radius: 10px;
     width: 260px;
-    height: 180px;
+    height: 210px; /* a bit taller to help long defs */
     margin: 10px;
     display: flex;
     align-items: center;
@@ -89,13 +89,19 @@
     font-size: 18px;
     text-align: center;
   }
+  .card-front > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .card-back {
     background: #37474F;
     color: #FFF;
     transform: rotateY(180deg);
-    font-size: 14px;
+    font-size: 13px;          /* slightly smaller text */
+    line-height: 1.3;         /* tighter lines */
     text-align: left;
-    overflow-y: auto;
+    overflow-y: auto;         /* scroll if it's still too long */
   }
   .chapter-tag {
     font-size: 11px;
@@ -107,11 +113,11 @@
 <body>
 
 <h1>🧲 Exam 5 Physics Flashcards 🧲</h1>
-<h2>Ch. 22 – Magnetism & Ch. 23 – Electromagnetic Induction</h2>
+<h2>Ch. 22 – Magnetism &amp; Ch. 23 – Electromagnetic Induction</h2>
 
 <p class="instructions">
   <strong>How to use this site:</strong><br>
-  • Click any card to flip between <em>term</em> and <em>definition</em>.<br>
+  • Tap any card to flip between <em>term (front)</em> and <em>definition (back)</em>.<br>
   • Press <strong>Shuffle</strong> to randomize the order of all cards.<br>
   • Press <strong>Flip All</strong> to flip every card at once (good for quick review or answer checking).<br>
   This page is based on the Exam 5 word pool for Chapters 22 &amp; 23 – feel free to share this link with classmates.
@@ -129,22 +135,22 @@ const flashcards = [
   {term: "Curie temperature", chapter: "Ch. 22", def: "The temperature above which a ferromagnetic material cannot be magnetized."},
   {term: "Direction of magnetic field lines", chapter: "Ch. 22", def: "The direction that the north end of a compass needle points in a magnetic field."},
   {term: "Domains", chapter: "Ch. 22", def: "Regions within a material that behave like small bar magnets."},
-  {term: "Electromagnet", chapter: "Ch. 22", def: "An object that is temporarily magnetic when an electric current is passed through it."},
-  {term: "Electromagnetism", chapter: "Ch. 22", def: "The use of electrical currents to induce magnetism."},
+  {term: "Electromagnet", chapter: "Ch. 22", def: "An object that becomes magnetic only when an electric current is passed through it."},
+  {term: "Electromagnetism", chapter: "Ch. 22", def: "The use of electrical currents to create or influence magnetic fields."},
   {term: "Ferromagnetic", chapter: "Ch. 22", def: "Materials (such as iron, cobalt, nickel, and gadolinium) that exhibit strong magnetic effects."},
   {term: "Lorentz force", chapter: "Ch. 22", def: "The force on a charge moving in a magnetic field."},
-  {term: "Magnetic field", chapter: "Ch. 22", def: "The representation of magnetic forces, often called the B-field."},
-  {term: "Magnetic field lines", chapter: "Ch. 22", def: "The pictorial representation of the strength and direction of a magnetic field."},
-  {term: "Magnetic force", chapter: "Ch. 22", def: "The force on a charge produced by its motion through a magnetic field; the Lorentz force."},
-  {term: "Magnetic monopoles", chapter: "Ch. 22", def: "Isolated magnetic poles (a single north or south pole); none have ever been observed."},
-  {term: "Magnetized", chapter: "Ch. 22", def: "To be turned into a magnet or induced to be magnetic."},
+  {term: "Magnetic field", chapter: "Ch. 22", def: "The representation of magnetic forces in space, often called the B-field."},
+  {term: "Magnetic field lines", chapter: "Ch. 22", def: "A pictorial way to show the strength and direction of a magnetic field."},
+  {term: "Magnetic force", chapter: "Ch. 22", def: "The force on a moving charge or a current due to a magnetic field; the Lorentz force."},
+  {term: "Magnetic monopoles", chapter: "Ch. 22", def: "Hypothetical isolated magnetic poles (a single north or south pole); none have ever been observed."},
+  {term: "Magnetized", chapter: "Ch. 22", def: "Describes a material that has been turned into a magnet or induced to be magnetic."},
   {term: "North magnetic pole", chapter: "Ch. 22", def: "The end or side of a magnet that is attracted toward Earth’s geographic north pole."},
-  {term: "Right hand rule 1 (RHR-1)", chapter: "Ch. 22", def: "A rule to find the direction of the magnetic force on a positive moving charge: point the thumb of the right hand in the direction of the charge’s velocity v and the fingers in the direction of the magnetic field B; the force is perpendicular and away from the palm. For a negative charge, the force is perpendicular and into the palm."},
+  {term: "Right hand rule 1 (RHR-1)", chapter: "Ch. 22", def: "Rule for the direction of magnetic force on a positive charge: thumb = velocity v, fingers = magnetic field B, and the force is perpendicular and away from the palm. For a negative charge, the force is in the opposite direction (into the palm)."},
   {term: "South magnetic pole", chapter: "Ch. 22", def: "The end or side of a magnet that is attracted toward Earth’s geographic south pole."},
 
   // CHAPTER 23
-  {term: "Electromagnetic induction", chapter: "Ch. 23", def: "The process of inducing an emf (voltage) with a change in magnetic flux."},
-  {term: "Lenz’s law", chapter: "Ch. 23", def: "The law (expressed by the minus sign in Faraday’s law) stating that the induced emf in a coil opposes the change in magnetic flux that produced it."}
+  {term: "Electromagnetic induction", chapter: "Ch. 23", def: "The process of inducing an emf (voltage) in a circuit by changing the magnetic flux through it."},
+  {term: "Lenz’s law", chapter: "Ch. 23", def: "States that the induced emf always acts to oppose the change in magnetic flux that produced it (the minus sign in Faraday’s law)."}
 ];
 
 function renderCards() {
@@ -162,7 +168,6 @@ function renderCards() {
           </div>
         </div>
         <div class="card-back">
-          <strong>${fc.term} (${fc.chapter})</strong><br><br>
           ${fc.def}
         </div>
       </div>
