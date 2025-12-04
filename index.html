@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam 5 Physics Flashcards – Magnetism & Induction</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    color: #4FC3F7;
+    margin-bottom: 0;
+  }
+  h2 {
+    color: #B0BEC5;
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 16px;
+  }
+  p.instructions {
+    max-width: 700px;
+    margin: 10px auto 20px auto;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #CFD8DC;
+  }
+  button {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #1976D2;
+  }
+  #flashcards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .card {
+    background: #1E1E1E;
+    border: 1px solid #333;
+    border-radius: 10px;
+    width: 260px;
+    height: 180px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+  }
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+  .card-front, .card-back {
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .card-front {
+    background: #263238;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+  }
+  .card-back {
+    background: #37474F;
+    color: #FFF;
+    transform: rotateY(180deg);
+    font-size: 14px;
+    text-align: left;
+    overflow-y: auto;
+  }
+  .chapter-tag {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🧲 Exam 5 Physics Flashcards 🧲</h1>
+<h2>Ch. 22 – Magnetism & Ch. 23 – Electromagnetic Induction</h2>
+
+<p class="instructions">
+  <strong>How to use this site:</strong><br>
+  • Click any card to flip between <em>term</em> and <em>definition</em>.<br>
+  • Press <strong>Shuffle</strong> to randomize the order of all cards.<br>
+  • Press <strong>Flip All</strong> to flip every card at once (good for quick review or answer checking).<br>
+  This page is based on the Exam 5 word pool for Chapters 22 &amp; 23 – feel free to share this link with classmates.
+</p>
+
+<button onclick="shuffleCards()">🔀 Shuffle</button>
+<button onclick="flipAll()">🔁 Flip All</button>
+
+<div id="flashcards"></div>
+
+<script>
+const flashcards = [
+  // CHAPTER 22
+  {term: "B-field", chapter: "Ch. 22", def: "Another term for magnetic field."},
+  {term: "Curie temperature", chapter: "Ch. 22", def: "The temperature above which a ferromagnetic material cannot be magnetized."},
+  {term: "Direction of magnetic field lines", chapter: "Ch. 22", def: "The direction that the north end of a compass needle points in a magnetic field."},
+  {term: "Domains", chapter: "Ch. 22", def: "Regions within a material that behave like small bar magnets."},
+  {term: "Electromagnet", chapter: "Ch. 22", def: "An object that is temporarily magnetic when an electric current is passed through it."},
+  {term: "Electromagnetism", chapter: "Ch. 22", def: "The use of electrical currents to induce magnetism."},
+  {term: "Ferromagnetic", chapter: "Ch. 22", def: "Materials (such as iron, cobalt, nickel, and gadolinium) that exhibit strong magnetic effects."},
+  {term: "Lorentz force", chapter: "Ch. 22", def: "The force on a charge moving in a magnetic field."},
+  {term: "Magnetic field", chapter: "Ch. 22", def: "The representation of magnetic forces, often called the B-field."},
+  {term: "Magnetic field lines", chapter: "Ch. 22", def: "The pictorial representation of the strength and direction of a magnetic field."},
+  {term: "Magnetic force", chapter: "Ch. 22", def: "The force on a charge produced by its motion through a magnetic field; the Lorentz force."},
+  {term: "Magnetic monopoles", chapter: "Ch. 22", def: "Isolated magnetic poles (a single north or south pole); none have ever been observed."},
+  {term: "Magnetized", chapter: "Ch. 22", def: "To be turned into a magnet or induced to be magnetic."},
+  {term: "North magnetic pole", chapter: "Ch. 22", def: "The end or side of a magnet that is attracted toward Earth’s geographic north pole."},
+  {term: "Right hand rule 1 (RHR-1)", chapter: "Ch. 22", def: "A rule to find the direction of the magnetic force on a positive moving charge: point the thumb of the right hand in the direction of the charge’s velocity v and the fingers in the direction of the magnetic field B; the force is perpendicular and away from the palm. For a negative charge, the force is perpendicular and into the palm."},
+  {term: "South magnetic pole", chapter: "Ch. 22", def: "The end or side of a magnet that is attracted toward Earth’s geographic south pole."},
+
+  // CHAPTER 23
+  {term: "Electromagnetic induction", chapter: "Ch. 23", def: "The process of inducing an emf (voltage) with a change in magnetic flux."},
+  {term: "Lenz’s law", chapter: "Ch. 23", def: "The law (expressed by the minus sign in Faraday’s law) stating that the induced emf in a coil opposes the change in magnetic flux that produced it."}
+];
+
+function renderCards() {
+  const container = document.getElementById("flashcards");
+  container.innerHTML = "";
+  flashcards.forEach(fc => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front">
+          <div>
+            <div>${fc.term}</div>
+            <div class="chapter-tag">${fc.chapter}</div>
+          </div>
+        </div>
+        <div class="card-back">
+          <strong>${fc.term} (${fc.chapter})</strong><br><br>
+          ${fc.def}
+        </div>
+      </div>
+    `;
+    card.onclick = () => card.classList.toggle("flipped");
+    container.appendChild(card);
+  });
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  renderCards();
+}
+
+function flipAll() {
+  document.querySelectorAll(".card").forEach(card => card.classList.toggle("flipped"));
+}
+
+renderCards();
+</script>
+
+</body>
+</html>
